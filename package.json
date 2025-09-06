@@ -1,0 +1,29 @@
+{
+  "name": "f1-prediction-game",
+  "version": "1.0.0",
+  "description": "Formula 1 Prediction Challenge - A web-based game where users predict F1 race finishing order and get scored",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server . -p 3000 -c-1",
+    "dev": "npx http-server . -p 3000 -c-1 -o",
+    "build": "echo 'No build process needed for vanilla JS/HTML/CSS'",
+    "test": "echo 'No tests specified'"
+  },
+  "keywords": [
+    "formula1",
+    "f1",
+    "prediction",
+    "game",
+    "racing",
+    "sports",
+    "vanilla-js"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formula 1 Prediction Challenge</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Formula 1 Prediction Challenge</h1>
+            <div class="phase-toggle">
+                <button id="prediction-btn" class="phase-btn active">Make Predictions</button>
+                <button id="results-btn" class="phase-btn">Enter Results</button>
+            </div>
+        </header>
+
+        <!-- Phase 1: Prediction UI -->
+        <div id="prediction-phase" class="phase active">
+            <div class="instructions">
+                <p>Predict the finishing order for all 20 Formula 1 drivers. Select each driver only once!</p>
+            </div>
+            
+            <div class="quartile-container">
+                <div class="quartile">
+                    <h3>Positions 1-5</h3>
+                    <div class="positions-group">
+                        <div class="position-slot" data-position="1">
+                            <label>P1</label>
+                            <select class="driver-dropdown" data-position="1">
+                                <option value="">Select driver...</option>
+                            </select>
+                            <div class="driver-portrait"></div>
+                        </div>
+                        <div class="position-slot" data-position="2">
+                            <label>P2</label>
+                            <select class="driver-dropdown" data-position="2">
+                                <option value="">Select driver...</option>
+                            </select>
+                            <div class="driver-portrait"></div>
+                        </div>
+                        <div class="position-slot" data-position="3">
+                            <label>P3</label>
+                            <select class="driver-dropdown" data-position="3">
+                                <option value="">Select driver...</option>
+                            </select>
+                            <div class="driver-portrait"></div>
+                        </div>
+                        <div class="position-slot" data-position="4">
+                            <label>P4</label>
+                            <select class="driver-dropdown" data-position="4">
+                                <option value="">Select driver...</option>
+                            </select>
+                            <div class="driver-portrait"></div>
+                        </div>
+                        <div class="position-slot" data-position="5">
+                            <label>P5</label>
+                            <select class="driver-dropdown" data-position="5">
+                                <option value="">Select driver...</option>
+                            </select>
+                            <div class="driver-portrait"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quartile">
+                    <h3>Positions 6-10</h3>
+                    <div class="positions-group">
+                        <div class="position-slot" data-position="6">
+                            <label>P6</label>
+                            <select class="driver-dropdown" data-position="6">
+                                <option value="">Select driver...</option>
+                            </select>
+                            <div class="driver-portrait"></div>
+                        </div>
+                        <div class="position-slot" data-position="7">
+                            <label>P7</label>
+                            <select class="driver-dropdown" data-position="7">
+                                <option value="">Select driver...</option>
+                            </select>
+                            <div class="driver-portrait"></div>
+                        </div>
+                        <div class="position-slot" data-position="8">
+                            <label>P8</label>
+                            <select class="driver-dropdown" data-position="8">
+                                <option value="">Select driver...</option>
+                            </select>
+                            <div class="driver-portrait"></div>
+                        </div>
+                        <div class="position-slot" data-position="9">
+                            <label>P9</label>
+                            <select class="driver-dropdown" data-position="9">
+                                <option value="">Select driver...</option>
+                            </select>
+                            <div class="driver-portrait"></div>
+                        </div>
+                        <div class="position-slot" data-position="10">
+                            <label>P10</label>
+                            <select class="driver-dropdown" data-position="10">
+                                <option value="">Select driver...</option>
+                            </select>
+                            <div class="driver-portrait"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quartile">
+                    <h3>Positions 11-15</h3>
+                    <div class="positions-group">
+                        <div class="position-slot" data-position="11">
+                            <label>P11</label>
+                            <select class="driver-dropdown" data-position="11">
+                                <option value="">Select driver...</option>
+                            </select>
+                            <div class="driver-portrait"></div>
+                        </div>
+                        <div class="position-slot" data-position="12">
+                            <label>P12</label>
+                            <select class="driver-dropdown" data-position="12">
+                                <option value="">Select driver...</option>
+                            </select>
+                            <div class="driver-portrait"></div>
+                        </div>
+                        <div class="position-slot" data-position="13">
+                            <label>P13</label>
+                            <select class="driver-dropdown" data-position="13">
+                                <option value="">Select driver...</option>
+                            </select>
+                            <div class="driver-portrait"></div>
+                        </div>
+                        <div class="position-slot" data-position="14">
+                            <label>P14</label>
+                            <select class="driver-dropdown" data-position="14">
+                                <option value="">Select driver...</option>
+                            </select>
+                            <div class="driver-portrait"></div>
+                        </div>
+                        <div class="position-slot" data-position="15">
+                            <label>P15</label>
+                            <select class="driver-dropdown" data-position="15">
+                                <option value="">Select driver...</option>
+                            </select>
+                            <div class="driver-portrait"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quartile">
+                    <h3>Positions 16-20</h3>
+                    <div class="positions-group">
+                        <div class="position-slot" data-position="16">
+                            <label>P16</label>
+                            <select class="driver-dropdown" data-position="16">
+                                <option value="">Select driver...</option>
+                            </select>
+                            <div class="driver-portrait"></div>
+                        </div>
+                        <div class="position-slot" data-position="17">
+                            <label>P17</label>
+                            <select class="driver-dropdown" data-position="17">
+                                <option value="">Select driver...</option>
+                            </select>
+                            <div class="driver-portrait"></div>
+                        </div>
+                        <div class="position-slot" data-position="18">
+                            <label>P18</label>
+                            <select class="driver-dropdown" data-position="18">
+                                <option value="">Select driver...</option>
+                            </select>
+                            <div class="driver-portrait"></div>
+                        </div>
+                        <div class="position-slot" data-position="19">
+                            <label>P19</label>
+                            <select class="driver-dropdown" data-position="19">
+                                <option value="">Select driver...</option>
+                            </select>
+                            <div class="driver-portrait"></div>
+                        </div>
+                        <div class="position-slot" data-position="20">
+                            <label>P20</label>
+                            <select class="driver-dropdown" data-position="20">
+                                <option value="">Select driver...</option>
+                            </select>
+                            <div class="driver-portrait"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button id="save-predictions-btn" class="primary-btn" disabled>Save Predictions</button>
+            </div>
+        </div>
+
+        <!-- Phase 2: Results UI -->
+        <div id="results-phase" class="phase">
+            <div class="instructions">
+                <p>Enter the actual race results to calculate your score. Results will be entered in stages.</p>
+            </div>
+
+            <div class="score-display">
+                <h2>Live Total Score: <span id="total-score">0</span></h2>
+            </div>
+
+            <div class="results-container">
+                <div class="predictions-column">
+                    <h3>Your Predictions</h3>
+                    <div id="saved-predictions"></div>
+                </div>
+
+                <div class="results-column">
+                    <h3>Actual Results</h3>
+                    
+                    <div class="stage-section" id="stage-16-20">
+                        <h4>Positions 16-20</h4>
+                        <div class="stage-results">
+                            <div class="result-slot" data-position="16">
+                                <label>P16 Actual:</label>
+                                <select class="result-dropdown" data-position="16">
+                                    <option value="">Select actual driver...</option>
+                                </select>
+                            </div>
+                            <div class="result-slot" data-position="17">
+                                <label>P17 Actual:</label>
+                                <select class="result-dropdown" data-position="17">
+                                    <option value="">Select actual driver...</option>
+                                </select>
+                            </div>
+                            <div class="result-slot" data-position="18">
+                                <label>P18 Actual:</label>
+                                <select class="result-dropdown" data-position="18">
+                                    <option value="">Select actual driver...</option>
+                                </select>
+                            </div>
+                            <div class="result-slot" data-position="19">
+                                <label>P19 Actual:</label>
+                                <select class="result-dropdown" data-position="19">
+                                    <option value="">Select actual driver...</option>
+                                </select>
+                            </div>
+                            <div class="result-slot" data-position="20">
+                                <label>P20 Actual:</label>
+                                <select class="result-dropdown" data-position="20">
+                                    <option value="">Select actual driver...</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="stage-submit-btn" data-stage="16-20">Submit 16-20</button>
+                    </div>
+
+                    <div class="stage-section" id="stage-11-15">
+                        <h4>Positions 11-15</h4>
+                        <div class="stage-results">
+                            <div class="result-slot" data-position="11">
+                                <label>P11 Actual:</label>
+                                <select class="result-dropdown" data-position="11" disabled>
+                                    <option value="">Select actual driver...</option>
+                                </select>
+                            </div>
+                            <div class="result-slot" data-position="12">
+                                <label>P12 Actual:</label>
+                                <select class="result-dropdown" data-position="12" disabled>
+                                    <option value="">Select actual driver...</option>
+                                </select>
+                            </div>
+                            <div class="result-slot" data-position="13">
+                                <label>P13 Actual:</label>
+                                <select class="result-dropdown" data-position="13" disabled>
+                                    <option value="">Select actual driver...</option>
+                                </select>
+                            </div>
+                            <div class="result-slot" data-position="14">
+                                <label>P14 Actual:</label>
+                                <select class="result-dropdown" data-position="14" disabled>
+                                    <option value="">Select actual driver...</option>
+                                </select>
+                            </div>
+                            <div class="result-slot" data-position="15">
+                                <label>P15 Actual:</label>
+                                <select class="result-dropdown" data-position="15" disabled>
+                                    <option value="">Select actual driver...</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="stage-submit-btn" data-stage="11-15" disabled>Submit 11-15</button>
+                    </div>
+
+                    <div class="stage-section" id="stage-1-10">
+                        <h4>Positions 1-10</h4>
+                        <div class="stage-results">
+                            <div class="result-slot" data-position="1">
+                                <label>P1 Actual:</label>
+                                <select class="result-dropdown" data-position="1" disabled>
+                                    <option value="">Select actual driver...</option>
+                                </select>
+                            </div>
+                            <div class="result-slot" data-position="2">
+                                <label>P2 Actual:</label>
+                                <select class="result-dropdown" data-position="2" disabled>
+                                    <option value="">Select actual driver...</option>
+                                </select>
+                            </div>
+                            <div class="result-slot" data-position="3">
+                                <label>P3 Actual:</label>
+                                <select class="result-dropdown" data-position="3" disabled>
+                                    <option value="">Select actual driver...</option>
+                                </select>
+                            </div>
+                            <div class="result-slot" data-position="4">
+                                <label>P4 Actual:</label>
+                                <select class="result-dropdown" data-position="4" disabled>
+                                    <option value="">Select actual driver...</option>
+                                </select>
+                            </div>
+                            <div class="result-slot" data-position="5">
+                                <label>P5 Actual:</label>
+                                <select class="result-dropdown" data-position="5" disabled>
+                                    <option value="">Select actual driver...</option>
+                                </select>
+                            </div>
+                            <div class="result-slot" data-position="6">
+                                <label>P6 Actual:</label>
+                                <select class="result-dropdown" data-position="6" disabled>
+                                    <option value="">Select actual driver...</option>
+                                </select>
+                            </div>
+                            <div class="result-slot" data-position="7">
+                                <label>P7 Actual:</label>
+                                <select class="result-dropdown" data-position="7" disabled>
+                                    <option value="">Select actual driver...</option>
+                                </select>
+                            </div>
+                            <div class="result-slot" data-position="8">
+                                <label>P8 Actual:</label>
+                                <select class="result-dropdown" data-position="8" disabled>
+                                    <option value="">Select actual driver...</option>
+                                </select>
+                            </div>
+                            <div class="result-slot" data-position="9">
+                                <label>P9 Actual:</label>
+                                <select class="result-dropdown" data-position="9" disabled>
+                                    <option value="">Select actual driver...</option>
+                                </select>
+                            </div>
+                            <div class="result-slot" data-position="10">
+                                <label>P10 Actual:</label>
+                                <select class="result-dropdown" data-position="10" disabled>
+                                    <option value="">Select actual driver...</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="stage-submit-btn" data-stage="1-10" disabled>Submit Final Results</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button id="export-results-btn" class="primary-btn" disabled>Export to Google Sheets</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="drivers.js"></script>
+    <script src="app.js"></script>
+    <script src="https://apis.google.com/js/api.js"></script>
+</body>
+</html>
