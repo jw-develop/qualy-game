@@ -14,6 +14,11 @@
                 <button id="prediction-btn" class="phase-btn active">Make Predictions</button>
                 <button id="results-btn" class="phase-btn">Enter Results</button>
             </div>
+            
+            <div class="connection-test">
+                <button id="test-connection-btn" class="test-btn">Test Google Sheets Connection</button>
+                <div id="connection-status" class="connection-status"></div>
+            </div>
         </header>
 
         <!-- Phase 1: Prediction UI -->
@@ -361,8 +366,10 @@
         </div>
     </div>
 
+    <script src="env-loader.js"></script>
     <script src="drivers.js"></script>
     <script src="app.js"></script>
     <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://accounts.google.com/gsi/client"></script>
 </body>
 </html>

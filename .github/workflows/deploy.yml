@@ -26,6 +26,12 @@ jobs:
     - name: Setup Pages
       uses: actions/configure-pages@v4
     
+    - name: Replace environment variables
+      run: |
+        sed -i 's/YOUR_API_KEY_HERE/${{ secrets.SHEETS_API_KEY }}/g' app.js
+        sed -i 's/YOUR_CLIENT_ID_HERE/${{ secrets.CLIENT_ID }}/g' app.js
+        sed -i 's/YOUR_SPREADSHEET_ID/${{ secrets.SPREADSHEET_ID }}/g' app.js
+    
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
       with:

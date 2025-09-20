@@ -61,6 +61,53 @@ h1 {
     color: white;
 }
 
+.connection-test {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.test-btn {
+    padding: 8px 16px;
+    border: 1px solid #7f8c8d;
+    background: #ecf0f1;
+    color: #2c3e50;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.test-btn:hover:not(:disabled) {
+    background: #d5dbdb;
+}
+
+.test-btn:disabled {
+    background: #95a5a6;
+    color: white;
+    cursor: not-allowed;
+}
+
+.connection-status {
+    margin-top: 10px;
+    font-size: 14px;
+    min-height: 20px;
+}
+
+.status-success {
+    color: #27ae60;
+    font-weight: bold;
+}
+
+.status-error {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.status-testing {
+    color: #f39c12;
+    font-weight: bold;
+}
+
 .phase {
     display: none;
 }

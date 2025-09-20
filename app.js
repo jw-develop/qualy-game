@@ -4,11 +4,13 @@ class F1PredictionGame {
         this.actualResults = {};
         this.totalScore = 0;
         this.currentStage = 'predictions';
+        this.accessToken = null;
         
         this.init();
     }
 
-    init() {
+    async init() {
+        await window.envLoader.loadEnvironmentVariables();
         this.setupPhaseToggle();
         this.populateDropdowns();
         this.setupEventListeners();
@@ -72,6 +74,10 @@ class F1PredictionGame {
 
         document.getElementById('export-results-btn').addEventListener('click', () => {
             this.exportToGoogleSheets();
+        });
+
+        document.getElementById('test-connection-btn').addEventListener('click', () => {
+            this.testGoogleSheetsConnection();
         });
     }
 
@@ -383,28 +389,103 @@ class F1PredictionGame {
         }
     }
 
+    async testGoogleSheetsConnection() {
+        const statusDiv = document.getElementById('connection-status');
+        const testBtn = document.getElementById('test-connection-btn');
+        
+        testBtn.disabled = true;
+        statusDiv.className = 'connection-status status-testing';
+        statusDiv.textContent = '🔄 Testing connection...';
+
+        // First check if we have valid credentials
+        if (!window.envLoader.hasValidCredentials()) {
+            statusDiv.className = 'connection-status status-error';
+            statusDiv.textContent = '❌ Missing credentials. Please create .env file with your Google API credentials.';
+            testBtn.disabled = false;
+            return;
+        }
+
+        try {
+            await this.initializeGoogleSheetsAPI();
+            
+            // Check if API client was properly initialized
+            if (!window.gapi.client.sheets) {
+                throw new Error('Google Sheets API client not initialized properly');
+            }
+            
+            const SPREADSHEET_ID = window.envLoader.getSpreadsheetId();
+            
+            const response = await window.gapi.client.sheets.spreadsheets.get({
+                spreadsheetId: SPREADSHEET_ID
+            });
+            
+            if (response.result) {
+                statusDiv.className = 'connection-status status-success';
+                statusDiv.textContent = `✅ Connection successful! Connected to: "${response.result.properties.title}"`;
+            }
+            
+        } catch (error) {
+            console.error('Connection test failed:', error);
+            statusDiv.className = 'connection-status status-error';
+            
+            // Handle different error formats
+            const errorMessage = error.message || error.details || error.error || 'Unknown error';
+            
+            if (errorMessage.includes('not initialized properly')) {
+                statusDiv.textContent = '❌ API initialization failed. Check your API key and client ID.';
+            } else if (errorMessage.includes('Not a valid origin')) {
+                statusDiv.textContent = '❌ OAuth error: Add your localhost URL to authorized origins in Google Cloud Console.';
+            } else if (error.status === 404) {
+                statusDiv.textContent = '❌ Spreadsheet not found. Check your SPREADSHEET_ID.';
+            } else if (error.status === 403) {
+                statusDiv.textContent = '❌ Access denied. Check your API key and OAuth setup.';
+            } else if (error.status === 401) {
+                statusDiv.textContent = '❌ Authentication failed. Please sign in to Google.';
+            } else if (errorMessage.includes('Cannot read properties')) {
+                statusDiv.textContent = '❌ API client failed to load. Check your credentials and try again.';
+            } else {
+                statusDiv.textContent = `❌ Connection failed: ${errorMessage}`;
+            }
+        } finally {
+            testBtn.disabled = false;
+        }
+    }
+
     async initializeGoogleSheetsAPI() {
         return new Promise((resolve, reject) => {
-            if (window.gapi && window.gapi.auth2) {
-                resolve();
-                return;
-            }
-
-            window.gapi.load('auth2:client', async () => {
+            // Initialize the Google API client
+            window.gapi.load('client', async () => {
                 try {
                     await window.gapi.client.init({
-                        apiKey: 'YOUR_API_KEY_HERE',
-                        clientId: 'YOUR_CLIENT_ID_HERE',
-                        discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
-                        scope: 'https://www.googleapis.com/auth/spreadsheets'
+                        apiKey: window.envLoader.getApiKey(),
+                        discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4']
                     });
                     
-                    const authInstance = window.gapi.auth2.getAuthInstance();
-                    if (!authInstance.isSignedIn.get()) {
-                        await authInstance.signIn();
+                    // Check if user is already authenticated
+                    if (this.accessToken) {
+                        window.gapi.client.setToken({ access_token: this.accessToken });
+                        resolve();
+                        return;
                     }
                     
-                    resolve();
+                    // Use Google Identity Services for authentication
+                    const tokenClient = google.accounts.oauth2.initTokenClient({
+                        client_id: window.envLoader.getClientId(),
+                        scope: 'https://www.googleapis.com/auth/spreadsheets',
+                        callback: (tokenResponse) => {
+                            if (tokenResponse.access_token) {
+                                this.accessToken = tokenResponse.access_token;
+                                window.gapi.client.setToken({ access_token: this.accessToken });
+                                resolve();
+                            } else {
+                                reject(new Error('Failed to get access token'));
+                            }
+                        }
+                    });
+                    
+                    // Request access token
+                    tokenClient.requestAccessToken({ prompt: 'consent' });
+                    
                 } catch (error) {
                     reject(error);
                 }
@@ -413,7 +494,7 @@ class F1PredictionGame {
     }
 
     async createSheetAndWriteData(sheetName, data) {
-        const SPREADSHEET_ID = 'YOUR_SPREADSHEET_ID';
+        const SPREADSHEET_ID = window.envLoader.getSpreadsheetId();
         
         try {
             await window.gapi.client.sheets.spreadsheets.batchUpdate({
@@ -454,6 +535,6 @@ class F1PredictionGame {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     new F1PredictionGame();
 });

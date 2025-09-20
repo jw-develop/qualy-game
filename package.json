@@ -5,7 +5,9 @@
   "main": "index.html",
   "scripts": {
     "start": "npx http-server . -p 3000 -c-1",
-    "dev": "npx http-server . -p 3000 -c-1 -o",
+    "dev": "npm run check-env && npx http-server . -p 3000 -c-1 -o",
+    "dev-no-check": "npx http-server . -p 3000 -c-1 -o",
+    "check-env": "node -e \"const fs = require('fs'); if (!fs.existsSync('.env')) { console.log('\\n⚠️  No .env file found!\\n'); console.log('📝 To test Google Sheets integration locally:'); console.log('   1. Copy .env.example to .env'); console.log('   2. Add your Google API credentials to .env'); console.log('   3. Run npm run dev again\\n'); console.log('💡 Or use \\'npm run dev-no-check\\' to start without .env validation\\n'); process.exit(1); } else { console.log('✅ .env file found - starting server...'); }\"",
     "build": "echo 'No build process needed for vanilla JS/HTML/CSS'",
     "test": "echo 'No tests specified'"
   },
